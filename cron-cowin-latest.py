@@ -4,6 +4,7 @@
 import datetime
 import json
 import multiprocessing
+import notifier
 import os
 import pytz
 import random
@@ -16,7 +17,7 @@ tz_india = pytz.timezone('Asia/Kolkata')
 interval=600
 preferred_vaccine = ["COVAXIN", "COVISHIELD"]
 filename="vaccines-list.txt"
-whatsapp_numbers = ["9XXXXXXXX5", "98XXXXXXXX"]
+whatsapp_numbers = ["9003111105", "9841821061"]
 weeks_to_check = 3
 
 today_obj=datetime.datetime.now(tz_india)
@@ -73,6 +74,7 @@ def process_stuff(code, date):
                 with open(filename, 'a') as outfile:
                   outfile.write(line + "\n")
                 send_whatsapp(line)
+                notifier.notify(line)
                 print(line)
 
 
