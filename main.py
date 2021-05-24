@@ -23,10 +23,11 @@ min_age=18
 tz_india = pytz.timezone('Asia/Kolkata')
 interval=600
 pincodes = [4,6,10,18,30,35,36,66,81,96,102,116]
-preferred_vaccine = ["COVAXIN"]  # Add other manufacturers if interested
+preferred_vaccine = ["COVAXIN","COVISHIELD"]  # Add other manufacturers if interested
 filename="vaccines-list.txt"
 weeks_to_check = 2
 outfile = "available-slots.txt"
+min_available = 2
 
 account_sid = TWILIO_ACCOUNT_SID 
 auth_token = TWILIO_AUTH_TOKEN
@@ -107,7 +108,7 @@ def process_stuff(code, date):
        print(all_slots)
        for centre in all_slots:
        ## Filter only covaxin and if slots are available
-           if centre[2] in preferred_vaccine and centre[3] > 2:
+           if centre[2] in preferred_vaccine and centre[3] > min_available:
                 line = "Hospital:{}\nDate:{}\nSlots:{}\nVaccine:{}\nPostedTime:{}".format(centre[0], centre[1], centre[3], centre[2],today_obj.strftime("%d-%m-%Y-%H-%M"))
                 entry = "{}|{}|{}|{}|{}".format(today_obj.strftime("%d-%m-%Y-%H-%M"),centre[0], centre[1], centre[3], centre[2])
                 print("==========================VACCINES FOUND======================================")
